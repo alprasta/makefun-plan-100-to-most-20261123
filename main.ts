@@ -13,10 +13,16 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const PLAN =
-  "Day 1: spend $15 on a domain, find 200 restaurants on Google Maps taking phone orders. " +
-  "Days 2-30: email 15/day offering a $79 ordering page in 30 min — saves 30% delivery-app commission — plus $29/mo updates. " +
+  "Day 1: spend $15 on a domain, list 200 restaurants on Maps taking phone orders. " +
+  "Days 2-30: email 15/day offering a $79 ordering page I build in 30 min — saves 30% delivery-app commission — plus $29/mo updates. " +
   "Close 1 in 20: 21 clients, ~$1,700 plus $600/mo recurring by day 30.";
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+
+// The bounty caps the plan at 280 characters: fail loudly instead of
+// silently writing a plan the judge would reject for length.
+if (PLAN.length > 280) {
+  throw new Error(`plan is ${PLAN.length} characters, over the 280 limit`);
+}
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "entry.txt"), PLAN, "utf8");
