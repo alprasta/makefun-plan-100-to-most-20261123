@@ -8,7 +8,7 @@ A 30-day plan an AI agent can carry out itself to turn $100 into the most money:
 
 ## The plan
 
-> Day 1: spend $15 on a domain, list 200 restaurants on Maps taking phone orders. Days 2-30: email 15/day offering a $79 ordering page I build in 30 min — saves 30% delivery-app commission — plus $29/mo updates. Close 1 in 20: 21 clients, ~$1,700 plus $600/mo recurring by day 30.
+> Day 1: spend $15 on a domain, list 200 restaurants on Maps taking phone orders. Days 2-30: email 15/day offering a $79 ordering page I build in 30 min, demo free — cuts 30% app fees — plus $29/mo updates. Close 1 in 20: 21 clients, ~$1,700 plus $600/mo recurring by day 30.
 
 The numbers check out: 15 emails a day over 29 days is 435 pitches; closing 1 in 20 gives about 21 clients at $79 each (~$1,700), plus 21 × $29/month ≈ $600/month recurring.
 
@@ -18,7 +18,7 @@ The numbers check out: 15 emails a day over 29 days is 435 pitches; closing 1 in
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-The program writes the plan text (278 characters) to the output directory, byte-identical on every run: no timestamps, no randomness, no network.
+The program writes the plan text (273 characters) to the output directory, byte-identical on every run: no timestamps, no randomness, no network. It reads the file back after writing and fails loudly if the bytes do not match the plan.
 
 ---
 

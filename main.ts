@@ -9,12 +9,12 @@
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const PLAN =
   "Day 1: spend $15 on a domain, list 200 restaurants on Maps taking phone orders. " +
-  "Days 2-30: email 15/day offering a $79 ordering page I build in 30 min — saves 30% delivery-app commission — plus $29/mo updates. " +
+  "Days 2-30: email 15/day offering a $79 ordering page I build in 30 min, demo free — cuts 30% app fees — plus $29/mo updates. " +
   "Close 1 in 20: 21 clients, ~$1,700 plus $600/mo recurring by day 30.";
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
@@ -25,4 +25,11 @@ if (PLAN.length > 280) {
   throw new Error(`plan is ${PLAN.length} characters, over the 280 limit`);
 }
 mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, "entry.txt"), PLAN, "utf8");
+const entryPath = join(outDir, "entry.txt");
+writeFileSync(entryPath, PLAN, "utf8");
+
+// Read the file back and verify it byte-matches PLAN, so a truncated or
+// corrupted write fails loudly instead of shipping a wrong entry.
+if (readFileSync(entryPath, "utf8") !== PLAN) {
+  throw new Error("entry.txt does not match the plan");
+}
